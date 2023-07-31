@@ -37,6 +37,7 @@ namespace Tools
         public Connections connections = new Connections();
         public Presenter<Data, View> Present(IReadOnlyList<Data> list, View prefab, RectTransform container, Action<View, Data> onShow)
         {
+            if(list == null) return null;
             views = container.GetComponentsInChildren<View>().ToList();
             views.RemoveAll(v => v.GetComponent<PresenterIgnore>());
             views.ForEach(v => v.SetActive(false));

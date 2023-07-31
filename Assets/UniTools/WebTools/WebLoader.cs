@@ -8,10 +8,11 @@ namespace Tools
 {
     public static class WebLoader
     {
-        public static IEnumerator LoadTexture2D(string url, Action<Texture2D> getTextureEvent, bool createCash = true, bool needValidateCertificate = true)
+        public static IEnumerator LoadTexture2D(string url, Action<Texture2D> getTextureEvent, bool createCash = true, bool needValidateCertificate = true, Action<UnityWebRequest> onCreateRequest = null)
         {
             using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(url))
             {
+                onCreateRequest?.Invoke(request);
                 if (createCash && PlayerPrefsPro.HasKey(url))
                 {
                     getTextureEvent.Invoke(PlayerPrefsPro.GetTexture(url));
@@ -29,12 +30,12 @@ namespace Tools
                 if (createCash) PlayerPrefsPro.SetTexture(url, texture);
             }
         }
-        public static IEnumerator LoadSprite(string url, Action<Sprite> getSpriteEvent, bool createCash = true, bool needValidateCertificate = true)
+        public static IEnumerator LoadSprite(string url, Action<Sprite> getSpriteEvent, bool createCash = true, bool needValidateCertificate = true, Action<UnityWebRequest> onCreateRequest = null)
         {
             yield return LoadTexture2D(url, texture =>
             {
                 getSpriteEvent.Invoke(Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0, 0), 100));
-            }, createCash, needValidateCertificate);
+            }, createCash, needValidateCertificate, onCreateRequest);
         }
         public static IEnumerator LoadAssetBundle(string url, Action<AssetBundle> getBundleEvent, Action<float> progress, bool createCash = true, bool needValidateCertificate = true)
         {

@@ -11,7 +11,7 @@ public class PageLoader
         string json = "";
         yield return WebLoader.LoadText(url, loadedText => json = loadedText, request =>
         {
-            request.SetRequestHeader("Authorization", key);
+            request.SetRequestHeader("API_KEY", key);
             request.SetRequestHeader("Authorization", header);
             request.SetRequestHeader("accept", "application/json");
         });
