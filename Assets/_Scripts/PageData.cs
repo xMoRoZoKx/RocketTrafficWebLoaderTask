@@ -11,7 +11,7 @@ public class PageData
 public class Result
 {
     public bool adult;
-    public string backdrop_patch;
+    public string backdrop_path;
     public int[] genre_ids;
     public int id;
     public string original_language;

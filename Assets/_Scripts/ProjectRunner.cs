@@ -12,7 +12,7 @@ public class ProjectRunner : MonoBehaviour
     {
         StartCoroutine(PageLoader.Load(pageUrl, data =>
          {
-             WindowManager.Instance.Show<PagePresenterScreen>().Present(data, pageUrl);
+             WindowManager.Instance.Show<PagePresenterScreen>().Present(data);
          }, header, api_key));
     }
 }

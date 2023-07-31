@@ -24,6 +24,7 @@ namespace Tools
                 if (request.HasError())
                 {
                     Debug.LogError(request.error);
+                    yield break;
                 }
                 Texture2D texture = DownloadHandlerTexture.GetContent(request);
                 getTextureEvent.Invoke(texture);
